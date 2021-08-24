@@ -148,7 +148,33 @@ System.out.println("concatenation: " + arr[0] + arr[1] + i);
 
 What is the diference between a Java object and a primitive data type? 
 
- - Answer:
+ - Answer: A primitive data type is a block of memory, a Java object is a reference to multiple blocks of memory. The primitive data types are integers, byte, short, long, float, double, boolean, and char.
+ 
+  int favoriteNumber = 23;
+ 		   int randomNumber = 545;
+ 		   
+ 		   byte a = 1;
+ 		   byte b = 20;
+ 		   
+ 		   short c = -21;
+ 		   short d = 230;
+ 		   
+ 		   long e = -120391;
+ 		   long f = 230293;
+ 		   
+ 		   float g = 12.09876f;
+ 		   float h = 39.209f;
+ 		   
+ 		   double i = 12.2;
+ 		   double j = 234.2;
+ 		   
+ 		   boolean k = false;
+ 		   boolean l = true;
+ 		   
+ 		   char m = 'm';
+ 		   char n = 'n';
+ 		   
+ 
 
 Describe what an array is in your own words.
 
