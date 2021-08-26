@@ -178,24 +178,24 @@ What is the diference between a Java object and a primitive data type?
 
 Describe what an array is in your own words.
 
- - Answer:
+ - Answer: Array is a list of numbers stored in a specific order.
 
 How do you address an index in an array? Write a code that assigns 34 to a new variable by accessing the value stored in:  
         int[] arr = {4, 3, -1, 4, 34};
 
- - Answer:
+ - Answer: int e = arr[2];
 
 What is the first index of a list? Why?
 
- - Answer:
+ - Answer: The first index is 0, because numbers in java start in 0 not 1.
 
 Provide an original example of a null value. It must prove your understanding of the concept.
 
- - Answer:
+ - Answer: 
 
 What part of this instructions was incomplete or unclear?
 
- - Answer:
+ - Answer: No.
 
 Type down any class notes below this sentence:
 
