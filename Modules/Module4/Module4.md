@@ -206,11 +206,11 @@ it should have all animal class definitions defined above. It's main must constr
 
 Include the Link(s) you used to attain information for your selected animal.
 
- - Answer:
+ - Answer:https://en.wikipedia.org/wiki/Tiger  , https://en.wikipedia.org/wiki/Cat
 
 What part of the instructions was incomplete or unclear?
 
- - Answer:
+ - Answer: No
 
 Type down any class notes below this sentence:
 
