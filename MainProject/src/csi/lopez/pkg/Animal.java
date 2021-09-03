@@ -5,6 +5,7 @@ public class Animal {
     String name;
     int age;
     String scientificName;
+    Taxomony taxomony;
     
     
     public Animal(String name,int age, String scientificName) {
@@ -13,6 +14,13 @@ public class Animal {
 		this.scientificName = scientificName;
 	}
 	public Animal() {}
+	
+	public Animal(Taxomony taxomony, String name, int age, String scientificName) {
+		this.name = name;
+		this.age = age;
+		this.scientificName = scientificName;
+		this.taxomony = taxomony;
+	}
 
     //  Getters and Setters  
     public String getName(){
@@ -53,11 +61,18 @@ public class Animal {
         System.out.println("Name:" + a2.name);
         System.out.println("Age:" + a2.age);
         System.out.println("Scientific Name:" + a2.scientificName);
+                
+        Taxomony taxomony  = new Taxomony("Eukaryote", "Animalia", "Chordata", "Mammalia", "Carnivora", "Felidae", "Genus","Felis Catus");
+        
+        Animal a3 = new Animal(taxomony, "Cat", 4, "Felis Catus");
+        
+        a3.taxomony.setDomain("Eukaryote");
+        a3.taxomony.setKingdom("Animalia");
+        a3.taxomony.setPhylum("Chordata");
         
         
-    	
-        
-        
-    
+        System.out.println(a3.taxomony.getDomain());
+        System.out.println(a3.taxomony.getKingdom());
+        System.out.println(a3.taxomony.getPhylum());
     }  
 }
