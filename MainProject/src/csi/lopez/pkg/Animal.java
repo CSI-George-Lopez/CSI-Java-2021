@@ -44,6 +44,17 @@ public class Animal {
         this.scientificName = scientificName;
     }
     
+    public Taxomony getTaxomony() {
+    	return taxomony;
+    }
+    
+    public String toString() {
+    	String s = String.format("name:  %s \n Age: %s \n Taxomony: %s",name, age, getTaxomony().toString());
+    	return s;
+    }
+    
+    
+    
     public static void main(String[] args) {
     	Animal a = new Animal();
     	a.setName("Tigre");
@@ -61,18 +72,28 @@ public class Animal {
         System.out.println("Name:" + a2.name);
         System.out.println("Age:" + a2.age);
         System.out.println("Scientific Name:" + a2.scientificName);
+        
+        
+        
                 
         Taxomony taxomony  = new Taxomony("Eukaryote", "Animalia", "Chordata", "Mammalia", "Carnivora", "Felidae", "Genus","Felis Catus");
         
         Animal a3 = new Animal(taxomony, "Cat", 4, "Felis Catus");
         
-        a3.taxomony.setDomain("Eukaryote");
-        a3.taxomony.setKingdom("Animalia");
-        a3.taxomony.setPhylum("Chordata");
+        a3.getTaxomony().getDomain();
+        a3.getTaxomony().getKingdom();        
+        a3.getTaxomony().getPhylum();
+
         
+        System.out.println("Domain: " + a3.getTaxomony().getDomain());
+        System.out.println("Kingdom: " + a3.getTaxomony().getKingdom());
+        System.out.println("Phylum: " + a3.getTaxomony().getPhylum());
+        System.out.println();
+        System.out.println(a3);
         
-        System.out.println(a3.taxomony.getDomain());
-        System.out.println(a3.taxomony.getKingdom());
-        System.out.println(a3.taxomony.getPhylum());
+
+
+        
+
     }  
 }
