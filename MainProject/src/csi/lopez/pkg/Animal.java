@@ -1,5 +1,6 @@
 package csi.lopez.pkg;
 
+
 public class Animal {
 	//	Fields
     String name;
@@ -49,10 +50,10 @@ public class Animal {
     }
     
     public String toString() {
-    	String s = String.format("name:  %s \n Age: %s \n Taxomony: %s",name, age, getTaxomony().toString());
+   	    String s = String.format("name:  %s \n Age: %s \n ScientificName: %s \n Taxomony: %s",name, age, scientificName, taxomony, getTaxomony().toString());
     	return s;
-    }
-    
+   }
+   
     
     
     public static void main(String[] args) {
@@ -89,7 +90,7 @@ public class Animal {
         System.out.println("Kingdom: " + a3.getTaxomony().getKingdom());
         System.out.println("Phylum: " + a3.getTaxomony().getPhylum());
         System.out.println();
-        System.out.println(a3);
+        System.out.println(a3.toString());
         
 
 
