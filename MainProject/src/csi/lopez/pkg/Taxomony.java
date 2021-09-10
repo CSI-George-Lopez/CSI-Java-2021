@@ -91,7 +91,7 @@ public class Taxomony {
 	}
 
 	public String toString() {
-		String s = String.format("Domain  %s \n Phylum: %d \n Classis: %s \n Order: %s \n Family: %s \n Genus: %s \n Species: ", domain, phylum, classis, order, family, genus, species);
+		String s = String.format("Domain  %s \n Phylum: %s \n Classis: %s \n Order: %s \n Family: %s \n Genus: %s \n Species: %s ", domain, phylum, classis, order, family, genus, species);
 		return s;
 	}
 
