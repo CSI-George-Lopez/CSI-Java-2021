@@ -270,8 +270,13 @@ Here is an incomplete example of the `Animal` toString() function.
 
 Include the Link(s) you used to attain information for your selected animal.
 
- - Answer:https://en.wikipedia.org/wiki/Tiger  , https://en.wikipedia.org/wiki/Cat
-
+ - Answer: https://en.wikipedia.org/wiki/Tiger
+ 			 https://en.wikipedia.org/wiki/Cat
+ 			 https://en.wikipedia.org/wiki/Tiger_shark
+ 			 https://en.wikipedia.org/wiki/Pterois
+			https://en.wikipedia.org/wiki/Puerto_Rican_amazon
+			
+			
 What part of the instructions was incomplete or unclear?
 
  - Answer: No

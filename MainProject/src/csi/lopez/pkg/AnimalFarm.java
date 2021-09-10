@@ -19,5 +19,4 @@ public class AnimalFarm {
 		System.out.println(animals[4]);
 		
 	}
-
 }
