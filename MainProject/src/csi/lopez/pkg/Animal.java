@@ -6,7 +6,7 @@ public class Animal {
     String name;
     int age;
     String scientificName;
-    Taxomony taxomony;
+    Taxonomy taxonomy;
     
     
     public Animal(String name,int age, String scientificName) {
@@ -16,11 +16,11 @@ public class Animal {
 	}
 	public Animal() {}
 	
-	public Animal(Taxomony taxomony, String name, int age, String scientificName) {
+	public Animal(Taxonomy taxonomy, String name, int age, String scientificName) {
 		this.name = name;
 		this.age = age;
 		this.scientificName = scientificName;
-		this.taxomony = taxomony;
+		this.taxonomy = taxonomy;
 	}
 
     //  Getters and Setters  
@@ -45,12 +45,12 @@ public class Animal {
         this.scientificName = scientificName;
     }
     
-    public Taxomony getTaxomony() {
-    	return taxomony;
+    public Taxonomy getTaxonomy() {
+    	return taxonomy;
     }
     
     public String toString() {
-   	    String s = String.format("name:  %s \n Age: %d \n ScientificName: %s \n Taxomony: %s \n",name, age, scientificName, taxomony, getTaxomony().toString());
+   	    String s = String.format("name:  %s \n Age: %d \n ScientificName: %s \n Taxomony: %s \n",name, age, scientificName, taxonomy);
     	return s;
    }
    
@@ -77,18 +77,18 @@ public class Animal {
         
         
                 
-        Taxomony taxomony  = new Taxomony("Eukaryote", "Animalia", "Chordata", "Mammalia", "Carnivora", "Felidae", "Genus","Felis Catus");
+        Taxonomy taxomony  = new Taxonomy("Eukaryote", "Animalia", "Chordata", "Mammalia", "Carnivora", "Felidae", "Genus","Felis Catus");
         
         Animal a3 = new Animal(taxomony, "Cat", 4, "Felis Catus");
-        
-        a3.getTaxomony().getDomain();
-        a3.getTaxomony().getKingdom();        
-        a3.getTaxomony().getPhylum();
+   
+        a3.getTaxonomy().getDomain();
+        a3.getTaxonomy().getKingdom();        
+        a3.getTaxonomy().getPhylum();
 
         
-        System.out.println("Domain: " + a3.getTaxomony().getDomain());
-        System.out.println("Kingdom: " + a3.getTaxomony().getKingdom());
-        System.out.println("Phylum: " + a3.getTaxomony().getPhylum());
+        System.out.println("Domain: " + a3.getTaxonomy().getDomain());
+        System.out.println("Kingdom: " + a3.getTaxonomy().getKingdom());
+        System.out.println("Phylum: " + a3.getTaxonomy().getPhylum());
         System.out.println();
         System.out.println(a3);
         
@@ -97,4 +97,6 @@ public class Animal {
         
 
     }  
+    
+    
 }

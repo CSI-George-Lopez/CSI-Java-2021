@@ -1,6 +1,6 @@
 package csi.lopez.pkg;
 
-public class Taxomony {
+public class Taxonomy {
 	String domain;
 	String kingdom;
 	String phylum;
@@ -10,7 +10,7 @@ public class Taxomony {
 	String genus;
 	String species;
 
-	public Taxomony(String domain, String kingdom, String phylum, String classis, String order, String family,
+	public Taxonomy(String domain, String kingdom, String phylum, String classis, String order, String family,
 			String genus, String species) {
 		super();
 		this.domain = domain;
@@ -23,7 +23,7 @@ public class Taxomony {
 		this.species = species;
 	}
 
-	public Taxomony() {
+	public Taxonomy() {
 	}
 
 	public String getDomain() {
