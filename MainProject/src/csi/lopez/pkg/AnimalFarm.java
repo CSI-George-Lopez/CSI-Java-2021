@@ -22,7 +22,8 @@ public class AnimalFarm {
 //		System.out.println(animals[3]);
 //		System.out.println(animals[4]);
 		
-		printAnimals();
+//		printAnimals();
+		printEachAnimal();
 		
 	}
 	
@@ -33,10 +34,14 @@ public class AnimalFarm {
 			
 			System.out.println("Animal: " + i);
 			System.out.println(animals[i]);
+		}	
+	}
+	
+	public static void printEachAnimal() {
+		
+		for(Animal a : animals){
+			System.out.println(a);
 		}
-		
-		
-		
 	}
 	
 	
