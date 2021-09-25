@@ -30,7 +30,7 @@ public class EvenOdd2D {
 		
 		for(int i = 0; i < arr.length; i++) {
 		    for(int j = 0; j < arr[i].length; j++) {
-		    	 arr[i][j] = (int)(Math.random()*5);
+		    	 arr[i][j] = (int) (Math.random()*5);
 		    	
 		    	if(arr[i][j] % 2 == 0) {
 		    		arr[i][j] = 0;
