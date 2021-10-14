@@ -21,9 +21,9 @@ public class LaX {
 		for(int i = 0; i < arr.length; i++) {
 		    for(int j = 0; j < arr[i].length; j++) {
 		    	
-		    	
-		    	arr[j][j] = 1;
-		    	arr[j][arr.length - j - 1] = 1;
+		    	arr[i][j] = 1;
+		    	arr[j][j] = 0;
+		    	arr[j][arr.length - j - 1] = 0;
 		    	
 		    	
 		    	
