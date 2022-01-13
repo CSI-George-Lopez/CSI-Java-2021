@@ -17,11 +17,11 @@ import javax.swing.Timer;
 
 public class Board extends JPanel implements ActionListener {
 
-    private final int B_WIDTH = 900;
-    private final int B_HEIGHT = 900;
-    private final int DOT_SIZE = 40;
-    private final int ALL_DOTS = 900;
-    private final int RAND_POS = 29;
+    private final int B_WIDTH = 800;
+    private final int B_HEIGHT = 800;
+    private final int DOT_SIZE = 41;
+    private final int ALL_DOTS = 41;
+    private final int RAND_POS = 10;
     private final int DELAY = 140;
 
     private final int x[] = new int[ALL_DOTS];
@@ -160,12 +160,12 @@ public class Board extends JPanel implements ActionListener {
 
     private void checkCollision() {
 
-        for (int z = dots; z > 0; z--) {
+    	for (int z = dots; z > 0; z--) {
 
-            if ((z > 4) && (x[0] == x[z]) && (y[0] == y[z])) {
-                inGame = false;
-            }
-        }
+    	    if ((z > 4) && (x[0] == x[z]) && (y[0] == y[z])) {
+    	        inGame = false;
+    	    }
+    	}
 
         if (y[0] >= B_HEIGHT) {
             inGame = false;
