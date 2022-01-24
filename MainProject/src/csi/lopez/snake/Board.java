@@ -14,13 +14,14 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.JButton;
 
 public class Board extends JPanel implements ActionListener {
 
     private final int B_WIDTH = 800;
     private final int B_HEIGHT = 800;
-    private final int DOT_SIZE = 41;
-    private final int ALL_DOTS = 41;
+    private final int DOT_SIZE = 50;
+    private final int ALL_DOTS = 50;
     private final int RAND_POS = 10;
     private final int DELAY = 140;
 
@@ -31,6 +32,8 @@ public class Board extends JPanel implements ActionListener {
     private int apple_x;
     private int apple_y;
 
+    private int score = 0;
+    
     private boolean leftDirection = false;
     private boolean rightDirection = true;
     private boolean upDirection = false;
@@ -41,6 +44,8 @@ public class Board extends JPanel implements ActionListener {
     private Image ball;
     private Image apple;
     private Image head;
+    private Image background;
+   
 
     public Board() {
         
@@ -68,8 +73,15 @@ public class Board extends JPanel implements ActionListener {
 
         ImageIcon iih = new ImageIcon("src/resources/head.png");
         head = iih.getImage();
-    }
+        
+        ImageIcon back = new ImageIcon("src/resources/background.png");
+        background = back.getImage();
 
+        
+        
+    }
+    
+   
     private void initGame() {
 
         dots = 3;
@@ -88,7 +100,8 @@ public class Board extends JPanel implements ActionListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
+        
+        g.drawImage(background, 0, 0, null);
         doDrawing(g);
     }
     
@@ -105,11 +118,12 @@ public class Board extends JPanel implements ActionListener {
                     g.drawImage(ball, x[z], y[z], this);
                 }
             }
+            scoreBoard(g);
 
             Toolkit.getDefaultToolkit().sync();
 
         } else {
-
+        	
             gameOver(g);
         }        
     }
@@ -117,12 +131,22 @@ public class Board extends JPanel implements ActionListener {
     private void gameOver(Graphics g) {
         
         String msg = "Game Over";
-        Font small = new Font("Helvetica", Font.BOLD, 14);
+        Font small = new Font("Helvetica", Font.ITALIC, 130);
         FontMetrics metr = getFontMetrics(small);
 
         g.setColor(Color.white);
         g.setFont(small);
         g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2);
+        
+        
+        String msgB = "          Press Enter to Restart";
+        Font smallB = new Font("Helvetica", Font.ITALIC, 50);
+        FontMetrics metrB = getFontMetrics(smallB);
+
+        g.setColor(Color.white);
+        g.setFont(smallB);
+        g.drawString(msgB, (B_WIDTH - metr.stringWidth(msgB)) / 30 * 2 /30 , B_HEIGHT * 2 / 3);
+    
     }
 
     private void checkApple() {
@@ -130,8 +154,37 @@ public class Board extends JPanel implements ActionListener {
         if ((x[0] == apple_x) && (y[0] == apple_y)) {
 
             dots++;
+            score++;
             locateApple();
         }
+    }
+    
+    private void scoreBoard(Graphics g) {
+
+    	 String msgA = "Current Score: " + score + "     ";
+    	 Font smallA = new Font("Helvetica", Font.ITALIC, 20);
+         FontMetrics metrA = getFontMetrics(smallA);
+
+         g.setColor(Color.white);
+         g.setFont(smallA);
+         g.drawString(msgA, (B_WIDTH - metrA.stringWidth(msgA)) / 1 , B_HEIGHT / 10 );
+    	
+    	
+    }
+    
+    public void restart() {
+
+    	inGame = true;
+    	initGame();
+    	score = 0;
+    	
+    	 rightDirection = true;
+         upDirection = false;
+         downDirection = false;
+         leftDirection = false;
+
+    	
+    	
     }
 
     private void move() {
@@ -217,28 +270,57 @@ public class Board extends JPanel implements ActionListener {
 
             int key = e.getKeyCode();
 
-            if ((key == KeyEvent.VK_LEFT) && (!rightDirection)) {
+//            if ((key == KeyEvent.VK_LEFT) && (!rightDirection)) {
+//                leftDirection = true;
+//                upDirection = false;
+//                downDirection = false;
+//            }
+//
+//            if ((key == KeyEvent.VK_RIGHT) && (!leftDirection)) {
+//                rightDirection = true;
+//                upDirection = false;
+//                downDirection = false;
+//            }
+//
+//            if ((key == KeyEvent.VK_UP) && (!downDirection)) {
+//                upDirection = true;
+//                rightDirection = false;
+//                leftDirection = false;
+//            }
+
+//            if ((key == KeyEvent.VK_DOWN) && (!upDirection)) {
+//                downDirection = true;
+//                rightDirection = false;
+//                leftDirection = false;
+//            }
+//            
+            
+            if ((key == KeyEvent.VK_S) && (!upDirection)) {
+                downDirection = true;
+                rightDirection = false;
+                leftDirection = false;
+            }
+            
+            if ((key == KeyEvent.VK_A) && (!rightDirection)) {
                 leftDirection = true;
                 upDirection = false;
                 downDirection = false;
             }
 
-            if ((key == KeyEvent.VK_RIGHT) && (!leftDirection)) {
+            if ((key == KeyEvent.VK_D) && (!leftDirection)) {
                 rightDirection = true;
                 upDirection = false;
                 downDirection = false;
             }
 
-            if ((key == KeyEvent.VK_UP) && (!downDirection)) {
+            if ((key == KeyEvent.VK_W) && (!downDirection)) {
                 upDirection = true;
                 rightDirection = false;
                 leftDirection = false;
-            }
-
-            if ((key == KeyEvent.VK_DOWN) && (!upDirection)) {
-                downDirection = true;
-                rightDirection = false;
-                leftDirection = false;
+            } 
+            if ((key == KeyEvent.VK_ENTER && (!inGame))) {
+            	restart();
+            	
             }
         }
     }
