@@ -74,7 +74,7 @@ public class Board extends JPanel implements ActionListener {
         ImageIcon iih = new ImageIcon("src/resources/head.png");
         head = iih.getImage();
         
-        ImageIcon back = new ImageIcon("src/resources/background.png");
+        ImageIcon back = new ImageIcon("src/resources/background2.png");
         background = back.getImage();
 
         
