@@ -116,7 +116,7 @@ public class Board extends JPanel implements ActionListener {
         
         locateApple();
         locateBomb();
-        checkLocation();
+//        checkLocation();
 
         timer = new Timer(DELAY, this);
         timer.start();
@@ -211,6 +211,15 @@ public class Board extends JPanel implements ActionListener {
             isBomb = true;
 //            locateBomb();
         }
+        
+        for(Bomb c : bombs) {
+    		
+    		if ((apple_x == c.bomb_x) && (apple_y == c.bomb_y)) {
+            	
+            	locateApple();
+               
+            }
+    	}
     }
     
     private void checkBomb() {
