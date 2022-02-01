@@ -11,9 +11,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import csi.lopez.life1.Loan;
+
 import javax.swing.JButton;
 
 public class Board extends JPanel implements ActionListener {
@@ -22,7 +28,7 @@ public class Board extends JPanel implements ActionListener {
     private final int B_HEIGHT = 800;
     private final int DOT_SIZE = 50;
     private final int ALL_DOTS = 50;
-    private final int RAND_POS = 10;
+    private final int RAND_POS = 12;
     private final int DELAY = 140;
 
     private final int x[] = new int[ALL_DOTS];
@@ -31,7 +37,10 @@ public class Board extends JPanel implements ActionListener {
     private int dots;
     private int apple_x;
     private int apple_y;
-
+    
+    List<Bomb> bombs = new ArrayList<Bomb>();
+    
+    
     private int score = 0;
     
     private boolean leftDirection = false;
@@ -39,12 +48,17 @@ public class Board extends JPanel implements ActionListener {
     private boolean upDirection = false;
     private boolean downDirection = false;
     private boolean inGame = true;
+    
+    private boolean isBomb = false;
+    private int numberOfBombs = bombs.size();
 
     private Timer timer;
     private Image ball;
     private Image apple;
     private Image head;
     private Image background;
+    private Image meme;
+    private Image bomb;
    
 
     public Board() {
@@ -63,7 +77,7 @@ public class Board extends JPanel implements ActionListener {
         initGame();
     }
 
-    private void loadImages() {
+    public void loadImages() {
 
         ImageIcon iid = new ImageIcon("src/resources/dot.png");
         ball = iid.getImage();
@@ -76,6 +90,15 @@ public class Board extends JPanel implements ActionListener {
         
         ImageIcon back = new ImageIcon("src/resources/background2.png");
         background = back.getImage();
+        
+        ImageIcon back1 = new ImageIcon("src/resources/background.png");
+//        background = back1.getImage();
+
+        ImageIcon memeBack = new ImageIcon("src/resources/meme.png");
+        meme = memeBack.getImage();
+        
+        ImageIcon iiB = new ImageIcon("src/resources/bomb.png");
+        bomb = iiB.getImage();
 
         
         
@@ -92,9 +115,22 @@ public class Board extends JPanel implements ActionListener {
         }
         
         locateApple();
+        locateBomb();
+        checkLocation();
 
         timer = new Timer(DELAY, this);
         timer.start();
+    }
+    public void checkLocation() {
+
+    	for(Bomb c : bombs) {
+    		
+    		if ((apple_x == c.bomb_x) && (apple_y == c.bomb_y)) {
+            	
+            	locateApple();
+               
+            }
+    	}
     }
 
     @Override
@@ -110,6 +146,12 @@ public class Board extends JPanel implements ActionListener {
         if (inGame) {
 
             g.drawImage(apple, apple_x, apple_y, this);
+            for(Bomb b : bombs) {
+            	g.drawImage(bomb, b.bomb_x, b.bomb_y, this);
+
+            }
+            
+            
 
             for (int z = 0; z < dots; z++) {
                 if (z == 0) {
@@ -129,23 +171,32 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void gameOver(Graphics g) {
+    	
+    	g.drawImage(meme, 250, 120, null);
+    	
+    	
+    	
+    	
+    	
+    	 
         
-        String msg = "Game Over";
-        Font small = new Font("Helvetica", Font.ITALIC, 130);
-        FontMetrics metr = getFontMetrics(small);
-
-        g.setColor(Color.white);
-        g.setFont(small);
-        g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2);
+//        String msg = "Game Over";
+//        Font small = new Font("Helvetica", Font.ITALIC, 130);
+//        FontMetrics metr = getFontMetrics(small);
+//
+//        g.setColor(Color.white);
+//        g.setFont(small);
+//        g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 5, B_HEIGHT / 2);
         
         
-        String msgB = "          Press Enter to Restart";
+        String msgB = "     Press Enter to        ";
         Font smallB = new Font("Helvetica", Font.ITALIC, 50);
         FontMetrics metrB = getFontMetrics(smallB);
 
         g.setColor(Color.white);
         g.setFont(smallB);
-        g.drawString(msgB, (B_WIDTH - metr.stringWidth(msgB)) / 30 * 2 /30 , B_HEIGHT * 2 / 3);
+        g.drawString(msgB, (B_WIDTH - metrB.stringWidth(msgB)) / 30 * 2 /30 , B_HEIGHT * 2 / 3);
+        
     
     }
 
@@ -155,9 +206,31 @@ public class Board extends JPanel implements ActionListener {
 
             dots++;
             score++;
+            changeBackground();
             locateApple();
+            isBomb = true;
+//            locateBomb();
         }
     }
+    
+    private void checkBomb() {
+    	
+    	for(Bomb c : bombs) {
+    		
+    		if ((x[0] == c.bomb_x) && (y[0] == c.bomb_y)) {
+            	
+            	inGame = false;
+               
+            }
+    	}
+        
+        
+        if(score % 5 == 0 && isBomb == true) {
+        	locateBomb();
+        }
+    }
+    
+
     
     private void scoreBoard(Graphics g) {
 
@@ -168,20 +241,41 @@ public class Board extends JPanel implements ActionListener {
          g.setColor(Color.white);
          g.setFont(smallA);
          g.drawString(msgA, (B_WIDTH - metrA.stringWidth(msgA)) / 1 , B_HEIGHT / 10 );
+         
+         //timer doesnt work yet. 
+//         String msgC = "Timer: " + timer.toString() + "     ";
+//    	 Font smallC = new Font("Helvetica", Font.ITALIC, 20);
+//         FontMetrics metrC = getFontMetrics(smallC);
+//
+//         g.setColor(Color.white);
+//         g.setFont(smallC);
+//         g.drawString(msgC, (B_WIDTH - metrC.stringWidth(msgC)) / 1 , B_HEIGHT / 2);
     	
     	
+    }
+    
+    public void changeBackground() {
+    	
+    	if(score % 2 == 1) {
+    		
+    	} else if(score % 2 == 0) {
+    		
+    	}
     }
     
     public void restart() {
 
     	inGame = true;
     	initGame();
+    	bombs.clear();
     	score = 0;
+    	locateBomb();
     	
-    	 rightDirection = true;
-         upDirection = false;
-         downDirection = false;
-         leftDirection = false;
+    	
+    	rightDirection = true;
+        upDirection = false;
+        downDirection = false;
+        leftDirection = false;
 
     	
     	
@@ -248,14 +342,28 @@ public class Board extends JPanel implements ActionListener {
 
         r = (int) (Math.random() * RAND_POS);
         apple_y = ((r * DOT_SIZE));
+        
     }
 
+    private void locateBomb() {
+    	isBomb = false;
+    	int b = (int) (Math.random() * RAND_POS);
+        int bomb_x = ((b * DOT_SIZE));
+
+        b = (int) (Math.random() * RAND_POS);
+        int bomb_y = ((b * DOT_SIZE));
+        
+        bombs.add(new Bomb(bomb_x,bomb_y));
+        
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
 
         if (inGame) {
 
             checkApple();
+            checkBomb();
             checkCollision();
             move();
         }
