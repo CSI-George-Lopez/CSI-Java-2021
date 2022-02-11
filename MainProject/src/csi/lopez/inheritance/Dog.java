@@ -1,20 +1,55 @@
 package csi.lopez.inheritance;
 
-public class Dog {
+import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+
+
+public class Dog extends JPanel{
 	
-	String hair;
+	
+	
+	
+	
 	int size; //ma x weight
 	boolean wild = true;
+	String hair;
+	boolean gender; //male = true
+	ImageIcon icon;
 	
 	
-
 	public Dog() {
 		// TODO Auto-generated constructor stub
-		
+//		initDog();
 	}
 	
+//	private void initDog() {
+//
+////        addKeyListener(new TAdapter());
+//        setBackground(new Color(50, 150, 150));
+//        setFocusable(true);
+//
+//        setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
+//        
+//	}
+	
+	public Dog(String hair, int size, boolean wild, boolean gender, String directory) {
+		super();
+		this.hair = hair;
+		this.size = size;
+		this.wild = wild;
+		this.gender = gender;
+		this.icon = new ImageIcon(getClass().getResource(directory));
+	}
 	
 	public void piss() {
+		
+		if(gender == true) {
+			System.out.println("raise leg");
+		}
+		System.out.println("Tsssssss");
 		
 	}
 	
@@ -49,11 +84,23 @@ public class Dog {
 	}
 	
 	public class Noise {
-		public Noise(int i, boolean b) {
-			// TODO Auto-generated constructor stub
+		int decibels;
+		boolean recurring;
+		
+		
+		public Noise() {
+			
 		}
-		int decibels = 0;
-		boolean recurring = false;
+
+
+		public Noise(int decibels, boolean recurring) {
+			super();
+			this.decibels = decibels;
+			this.recurring = recurring;
+		}
+		
+		
+		
 	}
 	
 	public class Food {
@@ -63,18 +110,30 @@ public class Dog {
 		String flavor;
 		String color;
 		boolean humanFood;
+		
+		public Shit digest() {
+			
+			return new Shit();
+		}
 	}
 	
 	
 	public Shit eat(Food f) {
 		
-		return new Shit();
+		return f.digest();
 	}
 	
-	public Noise bark(Noise n) {
+//	public Noise bark(Noise n) {
+//		
+//		return new Noise(n.decibels, n.recurring);
+//	}
+	
+	public Noise bark() {
+		return new Noise();
+	}
+	
+	public void mate(Dog d) {
 		
-		
-		return new Noise(n.decibels, n.recurring);
 	}
 
 }
