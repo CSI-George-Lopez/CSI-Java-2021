@@ -19,7 +19,7 @@ public class DogPound extends JPanel{
 	private int B_WIDTH = 800;
 	private int B_HEIGHT = 800; 
 	
-    private boolean inGame = true;
+    private boolean isRunning = true;
 
 	
 	private Image shepherd; 
@@ -44,14 +44,15 @@ public class DogPound extends JPanel{
 	   public void loadImages() {
 
 	        ImageIcon iid = new ImageIcon(getClass().getResource("GermanShepherd.png"));
-	        shepherd = iid.getImage();
+	        shepherd = iid.getImage().getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH);
+	        iid = new ImageIcon(shepherd);
 	        
 	   }
 	   
 	   public void actionPerformed(ActionEvent e) {
 		   
 		   
-		if(inGame) {
+		if(isRunning) {
 			   
 //			   checkCollision();
 //			   move();
