@@ -16,6 +16,7 @@ import java.util.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import csi.lopez.snake.Bomb;
 
@@ -23,11 +24,11 @@ import csi.lopez.snake.Bomb;
 
 public class DogPound extends JPanel implements ActionListener{
 	
-//	List<Dog> dogs1 = new ArrayList<Dog>();
+	List<Dog> dogs1 = new ArrayList<Dog>();
 	
 	private int B_WIDTH = 800;
 	private int B_HEIGHT = 800; 
-	private int DOG_SIZE = 120;
+	private int DOG_SIZE = 50;
 	private int ALL_DOGS = 120;
 	
 	private final int x[] = new int[ALL_DOGS];
@@ -41,13 +42,17 @@ public class DogPound extends JPanel implements ActionListener{
     private boolean downDirection = false;
     private boolean isRunning = true;
     
+    private Timer timer;
+    private final int DELAY = 140;
+    
+    private int count; 
     
 
 	
 	private Image shepherd; 
 	
 	  public DogPound() {
-	        
+	        dogs1.add(new GermanShepherd());
 	        initBoard();
 	    }
 	    
@@ -59,29 +64,32 @@ public class DogPound extends JPanel implements ActionListener{
 
 	        setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
 	        initSimulation();
-	        loadImages();
+//	        loadImages();
 	        
 	    }
 	   
 	   private void initSimulation() {
 
-	        dogs = 3;
+	        dogs = 1;
 
 	        for (int z = 0; z < dogs; z++) {
 	            x[z] = 50 - z * 10;
 	            y[z] = 50;
 	        }
-	   }
-	   
-	   
-	   public void loadImages() {
-
-	        ImageIcon iid = new ImageIcon(getClass().getResource("GermanShepherd.png"));
-	        shepherd = iid.getImage().getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH);
-	        iid = new ImageIcon(shepherd);
 	        
+	        timer = new Timer(DELAY, this);
+	        timer.start();
 	   }
-	  
+	   
+//	   
+//	   public void loadImages() {
+//
+//	        ImageIcon iid = new ImageIcon(getClass().getResource("GermanShepherd.png"));
+//	        shepherd = iid.getImage().getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH);
+//	        iid = new ImageIcon(shepherd);
+//	        
+//	   }
+//	  
 	   
 	   
 	   @Override
@@ -98,9 +106,9 @@ public class DogPound extends JPanel implements ActionListener{
 		   if (isRunning) {
 	            for (int z = 0; z < dogs; z++) {
 	                if (z == 0) {
-	                    g.drawImage(shepherd, x[z], y[z], this);
+	                    g.drawImage(dogs1.get(0).icon.getImage(), x[z], y[z], this);
 	                } else {
-	                	g.drawImage(shepherd, x[z], y[z], this);
+	                	g.drawImage(dogs1.get(0).icon.getImage(), x[z], y[z], this);
 	                }
 	            }
 	            Toolkit.getDefaultToolkit().sync();
@@ -150,7 +158,30 @@ public class DogPound extends JPanel implements ActionListener{
 	        if (downDirection) {
 	            y[0] += DOG_SIZE;
 	        }
+	        
+	        count++;
+	        Random rd = new Random();
+	        if(count % 5 == 0) {
+	        	upDirection = rd.nextBoolean();
+		        rightDirection = rd.nextBoolean();
+		        leftDirection = rd.nextBoolean();
+		        downDirection = rd.nextBoolean();
+	        }
+	        
+	        if(upDirection == false && downDirection == false && leftDirection == false && rightDirection == false) {
+	        	rightDirection = false;
+	        }
+	        if(upDirection == true && downDirection == true && leftDirection == true && rightDirection == true) {
+	        	rightDirection = true;
+	        	upDirection = false;
+	        	downDirection = false;
+	        	leftDirection = false;
+	        }
+	        
+	       
+	 	   	
 	    }
+	   
 	   
 	   
 	   
@@ -162,25 +193,42 @@ public class DogPound extends JPanel implements ActionListener{
 	    	        isRunning = false;
 	    	    }
 	    	}
+	    	Random rd = new Random();
 
 	        if (y[0] >= B_HEIGHT) {
-	            isRunning = false;
+//	            isRunning = false;
+	        	upDirection = rd.nextBoolean();
+                rightDirection = rd.nextBoolean();
+                leftDirection = rd.nextBoolean();
+                downDirection = false;
 	        }
 
 	        if (y[0] < 0) {
-	            isRunning = false;
+//	            isRunning = false;
+	        	leftDirection = rd.nextBoolean();
+                upDirection = false;
+                downDirection = rd.nextBoolean();
+                rightDirection = rd.nextBoolean();
 	        }
 
 	        if (x[0] >= B_WIDTH) {
-	            isRunning = false;
+//	        	isRunning = false;
+	        	upDirection = rd.nextBoolean();
+                rightDirection = false;
+                leftDirection = rd.nextBoolean();
+                downDirection = rd.nextBoolean();
 	        }
 
 	        if (x[0] < 0) {
-	            isRunning = false;
+//	            isRunning = false;
+	        	leftDirection = false;
+                upDirection = rd.nextBoolean();
+                downDirection = rd.nextBoolean();
+                rightDirection = rd.nextBoolean();
 	        }
 	        
 	        if (!isRunning) {
-	            
+	            timer.stop();
 	        }
 	    }
 	   

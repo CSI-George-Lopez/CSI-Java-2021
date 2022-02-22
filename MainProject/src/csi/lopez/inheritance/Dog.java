@@ -2,6 +2,7 @@ package csi.lopez.inheritance;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -41,7 +42,7 @@ public class Dog extends JPanel{
 		this.size = size;
 		this.wild = wild;
 		this.gender = gender;
-		this.icon = new ImageIcon(getClass().getResource(directory));
+		this.icon = new ImageIcon(new ImageIcon(getClass().getResource(directory)).getImage().getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH));
 	}
 	
 	public void piss() {
