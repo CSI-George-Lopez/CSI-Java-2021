@@ -1,4 +1,4 @@
-package csi.lopez.inheritance;
+package csi.lopez.sim;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;

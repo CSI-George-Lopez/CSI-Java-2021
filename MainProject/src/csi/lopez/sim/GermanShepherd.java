@@ -1,4 +1,4 @@
-package csi.lopez.inheritance;
+package csi.lopez.sim;
 
 public class GermanShepherd extends Dog{
 

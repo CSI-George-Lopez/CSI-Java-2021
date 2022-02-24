@@ -1,4 +1,4 @@
-package csi.lopez.inheritance;
+package csi.lopez.sim;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import csi.lopez.sim.Dog.Food;
 import csi.lopez.snake.Bomb;
 
 
@@ -25,10 +26,11 @@ import csi.lopez.snake.Bomb;
 public class DogPound extends JPanel implements ActionListener{
 	
 	List<Dog> dogs1 = new ArrayList<Dog>();
+	List<Dog.Shit> dogshits = new ArrayList<Dog.Shit>();
 	
 	private int B_WIDTH = 800;
 	private int B_HEIGHT = 800; 
-	private int DOG_SIZE = 50;
+	private int DOG_SIZE = 10;
 	private int ALL_DOGS = 120;
 	
 	private final int x[] = new int[ALL_DOGS];
@@ -50,6 +52,7 @@ public class DogPound extends JPanel implements ActionListener{
 
 	
 	private Image shepherd; 
+	private Image icon;
 	
 	  public DogPound() {
 	        dogs1.add(new GermanShepherd());
@@ -111,12 +114,21 @@ public class DogPound extends JPanel implements ActionListener{
 	                	g.drawImage(dogs1.get(0).icon.getImage(), x[z], y[z], this);
 	                }
 	            }
+	            for (int z = 0; z < dogshits.size(); z++) {
+	                    g.drawImage(dogshits.get(z).icon.getImage(), x[z], y[z], this);
+
+	            }
 	            Toolkit.getDefaultToolkit().sync();
 		   } else {
 			   gameOver(g);
 		   }
+		   
 
 	   }
+	   
+	   
+	   
+	   
 	   private void gameOver(Graphics g) {
 	    	
 	        String msg = "Game Over";
@@ -134,7 +146,17 @@ public class DogPound extends JPanel implements ActionListener{
 //	    public static void main(String[] args) {
 //	    	
 //	    }
-	   
+	   public void randomShit(Dog d, Graphics g) {
+		   
+		   Dog.Food f = (new Dog()).new Food();
+		   Dog.Shit s = d.eat(f);
+		   dogshits.add(s);
+//		   d.eat(f).icon.getImage();
+		 
+		   g.drawImage(s.icon.getImage(), 0, 0, null);
+		   
+		   
+	   }
 	   
 	   private void move() {
 
@@ -161,11 +183,22 @@ public class DogPound extends JPanel implements ActionListener{
 	        
 	        count++;
 	        Random rd = new Random();
-	        if(count % 5 == 0) {
+	        Random rand = new Random();
+
+	      
+
+	        int randomNum = rand.nextInt((20 - 1) + 1) + 1;
+	        int randomNum1 = rand.nextInt((50 - 1) + 1) + 1;
+	       
+	        if(count % randomNum == 0) {
 	        	upDirection = rd.nextBoolean();
 		        rightDirection = rd.nextBoolean();
 		        leftDirection = rd.nextBoolean();
 		        downDirection = rd.nextBoolean();
+	        }
+	        
+	        if(count % randomNum1 == 0) {
+	        	randomShit(dogs1.get(0), getGraphics());
 	        }
 	        
 	        if(upDirection == false && downDirection == false && leftDirection == false && rightDirection == false) {

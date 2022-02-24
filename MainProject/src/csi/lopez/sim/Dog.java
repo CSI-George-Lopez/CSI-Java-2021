@@ -1,4 +1,4 @@
-package csi.lopez.inheritance;
+package csi.lopez.sim;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,7 +17,7 @@ public class Dog extends JPanel{
 	int size; //ma x weight
 	boolean wild = true;
 	String hair;
-	boolean gender; //male = true
+	boolean female; //male = true
 	ImageIcon icon;
 	
 	
@@ -36,18 +36,18 @@ public class Dog extends JPanel{
 //        
 //	}
 	
-	public Dog(String hair, int size, boolean wild, boolean gender, String directory) {
+	public Dog(String hair, int size, boolean wild, boolean female, String directory) {
 		super();
 		this.hair = hair;
 		this.size = size;
 		this.wild = wild;
-		this.gender = gender;
-		this.icon = new ImageIcon(new ImageIcon(getClass().getResource(directory)).getImage().getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH));
+		this.female = female;
+		this.icon = new ImageIcon(new ImageIcon(getClass().getResource(directory)).getImage().getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH));
 	}
 	
 	public void piss() {
 		
-		if(gender == true) {
+		if(female == false) {
 			System.out.println("raise leg");
 		}
 		System.out.println("Tsssssss");
@@ -68,9 +68,16 @@ public class Dog extends JPanel{
 		boolean hard;
 		int size;
 		String shape;
+		ImageIcon icon;
 		
 		
 		public Shit() {
+			super();
+			this.hard = true;
+			this.size = 40;
+			this.shape = "long";
+			this.icon = new ImageIcon(new ImageIcon(getClass().getResource("shit.png")).getImage().getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH));
+
 
 		}
 		
@@ -79,6 +86,7 @@ public class Dog extends JPanel{
 			this.hard = hard;
 			this.size = size;
 			this.shape = shape;
+			 
 		}
 
 
@@ -108,6 +116,9 @@ public class Dog extends JPanel{
 		public Food(String flavor, String color, boolean humanFood) {
 			
 		}
+		public Food() {
+			// TODO Auto-generated constructor stub
+		}
 		String flavor;
 		String color;
 		boolean humanFood;
@@ -134,6 +145,10 @@ public class Dog extends JPanel{
 	}
 	
 	public void mate(Dog d) {
+		
+	}
+	
+	public void grow() {
 		
 	}
 
