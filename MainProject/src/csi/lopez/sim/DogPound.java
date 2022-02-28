@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +28,7 @@ public class DogPound extends JPanel implements ActionListener{
 	
 	List<Dog> dogs1 = new ArrayList<Dog>();
 	List<Dog.Shit> dogshits = new ArrayList<Dog.Shit>();
+//	List<int,int> dogshitLocation
 	
 	private int B_WIDTH = 800;
 	private int B_HEIGHT = 800; 
@@ -43,6 +45,8 @@ public class DogPound extends JPanel implements ActionListener{
     private boolean upDirection = false;
     private boolean downDirection = false;
     private boolean isRunning = true;
+    
+    private boolean isShit = true;
     
     private Timer timer;
     private final int DELAY = 140;
@@ -106,7 +110,10 @@ public class DogPound extends JPanel implements ActionListener{
 	   private void doDrawing(Graphics g) {
 		   
 		   
+		   
 		   if (isRunning) {
+			   
+			   
 	            for (int z = 0; z < dogs; z++) {
 	                if (z == 0) {
 	                    g.drawImage(dogs1.get(0).icon.getImage(), x[z], y[z], this);
@@ -114,10 +121,15 @@ public class DogPound extends JPanel implements ActionListener{
 	                	g.drawImage(dogs1.get(0).icon.getImage(), x[z], y[z], this);
 	                }
 	            }
+	            
+	            	
 	            for (int z = 0; z < dogshits.size(); z++) {
-	                    g.drawImage(dogshits.get(z).icon.getImage(), x[z], y[z], this);
-
-	            }
+	    	            
+		            g.drawImage(dogshits.get(z).icon.getImage(), dogshits.get(z).getLocation().x,  dogshits.get(z).getLocation().y, null);
+		                    
+		           }
+	            
+	            
 	            Toolkit.getDefaultToolkit().sync();
 		   } else {
 			   gameOver(g);
@@ -147,13 +159,17 @@ public class DogPound extends JPanel implements ActionListener{
 //	    	
 //	    }
 	   public void randomShit(Dog d, Graphics g) {
-		   
+//		   int z = dogs;
+		  
 		   Dog.Food f = (new Dog()).new Food();
 		   Dog.Shit s = d.eat(f);
+		   s.setLocation(new Point(x[0],y[0]));
 		   dogshits.add(s);
+		   
+		   
 //		   d.eat(f).icon.getImage();
 		 
-		   g.drawImage(s.icon.getImage(), 0, 0, null);
+//		   g.drawImage(s.icon.getImage(), 0, 0, null);
 		   
 		   
 	   }

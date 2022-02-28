@@ -1,7 +1,5 @@
 package csi.lopez.sim;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.*;
 
 import javax.swing.ImageIcon;
@@ -69,6 +67,7 @@ public class Dog extends JPanel{
 		int size;
 		String shape;
 		ImageIcon icon;
+		Point location;
 		
 		
 		public Shit() {
@@ -77,16 +76,30 @@ public class Dog extends JPanel{
 			this.size = 40;
 			this.shape = "long";
 			this.icon = new ImageIcon(new ImageIcon(getClass().getResource("shit.png")).getImage().getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH));
-
+			
 
 		}
 		
+//		public Shit(Point location) {
+//			super();
+//			this.location = location;
+//		}
+		
+
 		public Shit(boolean hard, int size, String shape) {
 			super();
 			this.hard = hard;
 			this.size = size;
 			this.shape = shape;
 			 
+		}
+
+		public Point getLocation() {
+			return location;
+		}
+
+		public void setLocation(Point location) {
+			this.location = location;
 		}
 
 
