@@ -28,6 +28,7 @@ public class DogPound extends JPanel implements ActionListener{
 	
 	List<Dog> dogs1 = new ArrayList<Dog>();
 	List<Dog.Shit> dogshits = new ArrayList<Dog.Shit>();
+	List<Treat> treats = new ArrayList<Treat>();
 //	List<int,int> dogshitLocation
 	
 	private int B_WIDTH = 800;
@@ -47,6 +48,7 @@ public class DogPound extends JPanel implements ActionListener{
     private boolean isRunning = true;
     
     private boolean isShit = true;
+    private boolean angered = false;
     
     private Timer timer;
     private final int DELAY = 140;
@@ -57,6 +59,7 @@ public class DogPound extends JPanel implements ActionListener{
 	
 	private Image shepherd; 
 	private Image icon;
+	public ImageIcon treat = new ImageIcon(new ImageIcon(getClass().getResource("treat.png")).getImage().getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH));
 	
 	  public DogPound() {
 	        dogs1.add(new GermanShepherd());
@@ -65,12 +68,13 @@ public class DogPound extends JPanel implements ActionListener{
 	    
 	   private void initBoard() {
 
-	        addKeyListener(new TAdapter());
+//	        addKeyListener(new TAdapter());
 	        setBackground(new Color(50, 150, 150));
 	        setFocusable(true);
 
 	        setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
 	        initSimulation();
+	        
 //	        loadImages();
 	        
 	    }
@@ -83,6 +87,9 @@ public class DogPound extends JPanel implements ActionListener{
 	            x[z] = 50 - z * 10;
 	            y[z] = 50;
 	        }
+	        
+	        locateTreat();
+//	        checkFood();
 	        
 	        timer = new Timer(DELAY, this);
 	        timer.start();
@@ -113,6 +120,11 @@ public class DogPound extends JPanel implements ActionListener{
 		   
 		   if (isRunning) {
 			   
+			   for(Treat t : treats) {
+	            	g.drawImage(treat.getImage(), t.food_x, t.food_y, this);
+
+	            }
+	            
 			   
 	            for (int z = 0; z < dogs; z++) {
 	                if (z == 0) {
@@ -128,7 +140,10 @@ public class DogPound extends JPanel implements ActionListener{
 		            g.drawImage(dogshits.get(z).icon.getImage(), dogshits.get(z).getLocation().x,  dogshits.get(z).getLocation().y, null);
 		                    
 		           }
-	            
+	            if(angered == true) {
+	            	bark(g);
+	            	
+	            }
 	            
 	            Toolkit.getDefaultToolkit().sync();
 		   } else {
@@ -138,7 +153,19 @@ public class DogPound extends JPanel implements ActionListener{
 
 	   }
 	   
-	   
+	   private void checkFood() {
+		   
+		   for(Treat t : treats) {
+	    		
+	    		if ((x[0] == t.food_x) && (y[0] == t.food_y)) {
+	            	
+	    			randomShit(dogs1.get(0), getGraphics());
+//	    			treats.remove();
+	            	
+	            }
+	    	}
+	        
+	   }
 	   
 	   
 	   private void gameOver(Graphics g) {
@@ -155,9 +182,6 @@ public class DogPound extends JPanel implements ActionListener{
 	    }
 	   
 	    
-//	    public static void main(String[] args) {
-//	    	
-//	    }
 	   public void randomShit(Dog d, Graphics g) {
 //		   int z = dogs;
 		  
@@ -166,13 +190,20 @@ public class DogPound extends JPanel implements ActionListener{
 		   s.setLocation(new Point(x[0],y[0]));
 		   dogshits.add(s);
 		   
-		   
-//		   d.eat(f).icon.getImage();
-		 
-//		   g.drawImage(s.icon.getImage(), 0, 0, null);
-		   
-		   
 	   }
+	   
+	   private void locateTreat() {
+		   	Random rd = new Random();
+//	    	isBomb = false;
+	    	int b = (int) (Math.random() * 50);
+	        int food_x = ((b * DOG_SIZE));
+
+	        b = (int) (Math.random() * 50);
+	        int food_y = ((b * DOG_SIZE));
+	        
+	        treats.add(new Treat(food_x,food_y));
+	        
+	    }
 	   
 	   private void move() {
 
@@ -212,9 +243,12 @@ public class DogPound extends JPanel implements ActionListener{
 		        leftDirection = rd.nextBoolean();
 		        downDirection = rd.nextBoolean();
 	        }
+	        if(count % randomNum == 1) {
+	        	locateTreat();
+	        }
 	        
 	        if(count % randomNum1 == 0) {
-	        	randomShit(dogs1.get(0), getGraphics());
+	        	angered = true;
 	        }
 	        
 	        if(upDirection == false && downDirection == false && leftDirection == false && rightDirection == false) {
@@ -230,6 +264,24 @@ public class DogPound extends JPanel implements ActionListener{
 	       
 	 	   	
 	    }
+	   
+	   private void bark(Graphics g) {
+		   
+
+	    	 String msgA = "Grrrrruuuaaaa!!!";
+	    	 Font smallA = new Font("Helvetica", Font.ITALIC, 20);
+	         FontMetrics metrA = getFontMetrics(smallA);
+
+	         g.setColor(Color.black);
+	         g.setFont(smallA);
+	         g.drawString(msgA, x[0], y[0]);
+	         
+	         if(count % 10 == 0) {
+	        	  angered = false;
+	         }
+	       
+		   
+	   }
 	   
 	   
 	   
@@ -288,46 +340,63 @@ public class DogPound extends JPanel implements ActionListener{
 	        if (isRunning) {
 	            checkCollision();
 	            move();
+	            checkFood();
 	        }
 	        repaint();
 	    }
 	   
-	   private class TAdapter extends KeyAdapter {
+//	   private class TAdapter extends KeyAdapter {
+//
+//	        @Override
+//	        public void keyPressed(KeyEvent e) {
+//
+//	            int key = e.getKeyCode();
+//	            
+//	            if ((key == KeyEvent.VK_S) && (!upDirection)) {
+//	                downDirection = true;
+//	                rightDirection = false;
+//	                leftDirection = false;
+//	            }
+//	            
+//	            if ((key == KeyEvent.VK_A) && (!rightDirection)) {
+//	                leftDirection = true;
+//	                upDirection = false;
+//	                downDirection = false;
+//	            }
+//
+//	            if ((key == KeyEvent.VK_D) && (!leftDirection)) {
+//	                rightDirection = true;
+//	                upDirection = false;
+//	                downDirection = false;
+//	            }
+//
+//	            if ((key == KeyEvent.VK_W) && (!downDirection)) {
+//	                upDirection = true;
+//	                rightDirection = false;
+//	                leftDirection = false;
+//	            } 
+//	            if ((key == KeyEvent.VK_ENTER && (!isRunning))) {
+//	            	
+//	            	
+//	            }
+//	        }
+//	    }
+	   
+	   
+	   public class Treat {
 
-	        @Override
-	        public void keyPressed(KeyEvent e) {
-
-	            int key = e.getKeyCode();
-	            
-	            if ((key == KeyEvent.VK_S) && (!upDirection)) {
-	                downDirection = true;
-	                rightDirection = false;
-	                leftDirection = false;
-	            }
-	            
-	            if ((key == KeyEvent.VK_A) && (!rightDirection)) {
-	                leftDirection = true;
-	                upDirection = false;
-	                downDirection = false;
-	            }
-
-	            if ((key == KeyEvent.VK_D) && (!leftDirection)) {
-	                rightDirection = true;
-	                upDirection = false;
-	                downDirection = false;
-	            }
-
-	            if ((key == KeyEvent.VK_W) && (!downDirection)) {
-	                upDirection = true;
-	                rightDirection = false;
-	                leftDirection = false;
-	            } 
-	            if ((key == KeyEvent.VK_ENTER && (!isRunning))) {
-	            	
-	            	
-	            }
-	        }
-	    }
+		    public int food_x;
+		    public int food_y;
+		   
+		    
+			public Treat(int food_x, int food_y) {
+				super();
+				this.food_x = food_x;
+				this.food_y = food_y;
+//				this.treat = new ImageIcon(new ImageIcon(getClass().getResource("treat.png")).getImage().getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH));
+			}
+			
+	   }
 	
 
 }

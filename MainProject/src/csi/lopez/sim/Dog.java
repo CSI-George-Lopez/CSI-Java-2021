@@ -154,6 +154,7 @@ public class Dog extends JPanel{
 //	}
 	
 	public Noise bark() {
+		
 		return new Noise();
 	}
 	
