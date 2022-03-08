@@ -234,8 +234,8 @@ public class DogPound extends JPanel implements ActionListener{
 
 	      
 
-	        int randomNum = rand.nextInt((20 - 1) + 1) + 1;
-	        int randomNum1 = rand.nextInt((50 - 1) + 1) + 1;
+	        int randomNum = rand.nextInt((30 - 1) + 1) + 1;
+	        int randomNum1 = rand.nextInt((150 - 1) + 1) + 1;
 	       
 	        if(count % randomNum == 0) {
 	        	upDirection = rd.nextBoolean();
@@ -243,7 +243,7 @@ public class DogPound extends JPanel implements ActionListener{
 		        leftDirection = rd.nextBoolean();
 		        downDirection = rd.nextBoolean();
 	        }
-	        if(count % randomNum == 1) {
+	        if(count % randomNum1 == 1) {
 	        	locateTreat();
 	        }
 	        
