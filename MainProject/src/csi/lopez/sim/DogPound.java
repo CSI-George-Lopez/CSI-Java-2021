@@ -38,6 +38,7 @@ public class DogPound extends JPanel implements ActionListener{
 	
 	private final int x[] = new int[ALL_DOGS];
     private final int y[] = new int[ALL_DOGS];
+    
 	
     private int dogs;
     
@@ -45,6 +46,12 @@ public class DogPound extends JPanel implements ActionListener{
     private boolean rightDirection = true;
     private boolean upDirection = false;
     private boolean downDirection = false;
+    
+    private boolean leftDirection1 = false;
+    private boolean rightDirection1 = true;
+    private boolean upDirection1 = false;
+    private boolean downDirection1 = false;
+    
     private boolean isRunning = true;
     
     private boolean isShit = true;
@@ -55,19 +62,31 @@ public class DogPound extends JPanel implements ActionListener{
     
     private int count; 
     
+    private Point startP = setStartP(new Point(100, 100));
+    
 
 	
+	public Point getStartP() {
+		return startP;
+	}
+
+	public Point setStartP(Point startP) {
+		return this.startP = startP;
+	}
+
 	private Image shepherd; 
 	private Image icon;
 	public ImageIcon treat = new ImageIcon(new ImageIcon(getClass().getResource("treat.png")).getImage().getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH));
 	
 	  public DogPound() {
-	        dogs1.add(new GermanShepherd());
+	        dogs1.add(new GermanShepherd(startP));
+	        
+	        
 	        initBoard();
 	    }
 	    
 	   private void initBoard() {
-
+		   
 //	        addKeyListener(new TAdapter());
 	        setBackground(new Color(50, 150, 150));
 	        setFocusable(true);
@@ -80,6 +99,7 @@ public class DogPound extends JPanel implements ActionListener{
 	    }
 	   
 	   private void initSimulation() {
+		   dogs1.add(new GermanShepherd(startP));
 
 	        dogs = 1;
 
@@ -87,6 +107,8 @@ public class DogPound extends JPanel implements ActionListener{
 	            x[z] = 50 - z * 10;
 	            y[z] = 50;
 	        }
+	        
+	  
 	        
 	        locateTreat();
 //	        checkFood();
@@ -126,13 +148,17 @@ public class DogPound extends JPanel implements ActionListener{
 	            }
 	            
 			   
-	            for (int z = 0; z < dogs; z++) {
+	            for (int z = 0; z < dogs1.size(); z++) {
 	                if (z == 0) {
 	                    g.drawImage(dogs1.get(0).icon.getImage(), x[z], y[z], this);
 	                } else {
 	                	g.drawImage(dogs1.get(0).icon.getImage(), x[z], y[z], this);
 	                }
+	                
+	               
 	            }
+	            
+
 	            
 	            	
 	            for (int z = 0; z < dogshits.size(); z++) {
@@ -210,6 +236,8 @@ public class DogPound extends JPanel implements ActionListener{
 	        for (int z = dogs; z > 0; z--) {
 	            x[z] = x[(z - 1)];
 	            y[z] = y[(z - 1)];
+	            
+	            
 	        }
 
 	        if (leftDirection) {
@@ -228,6 +256,28 @@ public class DogPound extends JPanel implements ActionListener{
 	            y[0] += DOG_SIZE;
 	        }
 	        
+//	        for (int z1 = dogs1.size(); z1 > 0; z1--) {
+//	            x[z1] = x[(z1 - 1)];
+//	            y[z1] = y[(z1 - 1)];
+//	        }
+//
+//	        if (leftDirection1) {
+//	            x[1] -= 10;
+//	        }
+//
+//	        if (rightDirection1) {
+//	            x[1] += 10;
+//	        }
+//
+//	        if (upDirection1) {
+//	            y[1] -= 10;
+//	        }
+//
+//	        if (downDirection1) {
+//	            y[1] += 10;
+//	        }
+
+	        
 	        count++;
 	        Random rd = new Random();
 	        Random rand = new Random();
@@ -235,19 +285,28 @@ public class DogPound extends JPanel implements ActionListener{
 	      
 
 	        int randomNum = rand.nextInt((30 - 1) + 1) + 1;
-	        int randomNum1 = rand.nextInt((150 - 1) + 1) + 1;
+	        int randomNum1 = rand.nextInt((5000 - 1) + 1) + 1;
+	        int randomNum2 = rand.nextInt((100 - 1) + 1) + 1;
 	       
 	        if(count % randomNum == 0) {
 	        	upDirection = rd.nextBoolean();
 		        rightDirection = rd.nextBoolean();
 		        leftDirection = rd.nextBoolean();
 		        downDirection = rd.nextBoolean();
+		        
+	        }
+	        
+	        if(count % randomNum2 == 0) {
+	        	upDirection1 = rd.nextBoolean();
+		        rightDirection1 = rd.nextBoolean();
+		        leftDirection1 = rd.nextBoolean();
+		        downDirection1 = rd.nextBoolean();
 	        }
 	        if(count % randomNum1 == 1) {
 	        	locateTreat();
 	        }
 	        
-	        if(count % randomNum1 == 0) {
+	        if(count % randomNum == 2) {
 	        	angered = true;
 	        }
 	        
@@ -275,6 +334,7 @@ public class DogPound extends JPanel implements ActionListener{
 	         g.setColor(Color.black);
 	         g.setFont(smallA);
 	         g.drawString(msgA, x[0], y[0]);
+	         dogs1.get(0).bark();
 	         
 	         if(count % 10 == 0) {
 	        	  angered = false;

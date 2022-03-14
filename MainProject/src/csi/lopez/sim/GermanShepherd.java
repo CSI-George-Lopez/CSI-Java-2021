@@ -1,8 +1,12 @@
 package csi.lopez.sim;
 
-public class GermanShepherd extends Dog{
+import java.awt.Point;
 
-	public GermanShepherd() {
+public class GermanShepherd extends Dog{
+	
+	
+
+	public GermanShepherd(Point p) {
 		
 		super("brown", 40, false, false, "GermanShepherd.png");
 		

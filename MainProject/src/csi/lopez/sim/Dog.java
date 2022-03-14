@@ -1,9 +1,30 @@
 package csi.lopez.sim;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
+import javax.print.attribute.standard.Media;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+
+
+//Java program to play an Audio
+//file using Clip Object
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 
 public class Dog extends JPanel{
@@ -108,10 +129,39 @@ public class Dog extends JPanel{
 	public class Noise {
 		int decibels;
 		boolean recurring;
-		
-		
+		Clip clip;
+		AudioInputStream audioInputStream;
+	    String filePath = "german-shephard-bark.mp3";
+	    
 		public Noise() {
-			
+//			try {
+//				AudioInputStream audioInput = AudioSystem.getAudioInputStream(getClass().getResource("german-shephard-bark.mp3"));
+//				this.clip = AudioSystem.getClip();
+//				clip.open(audioInput);
+////				clip.start();
+//			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			
+//			String bip = "bip.wav";
+//			Media hit = new Media(new File(bip).toURI().toString());
+//			MediaPlayer mediaPlayer = new MediaPlayer(hit);
+//			mediaPlayer.play();
+	
+//			 try {
+//				// create AudioInputStream object
+//				audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
+//
+//				// create clip reference
+//				clip = AudioSystem.getClip();
+//				  
+//				// open audioInputStream to the clip
+//				clip.open(audioInputStream);
+//			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		}
 
 
@@ -155,7 +205,9 @@ public class Dog extends JPanel{
 	
 	public Noise bark() {
 		
-		return new Noise();
+		Noise n = new Noise();
+		n.clip.start();
+		return n;
 	}
 	
 	public void mate(Dog d) {
