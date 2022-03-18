@@ -39,6 +39,9 @@ public class DogPound extends JPanel implements ActionListener{
 	private final int x[] = new int[ALL_DOGS];
     private final int y[] = new int[ALL_DOGS];
     
+	private final int x1[] = new int[ALL_DOGS];
+    private final int y1[] = new int[ALL_DOGS];
+    
 	
     private int dogs;
     
@@ -99,13 +102,17 @@ public class DogPound extends JPanel implements ActionListener{
 	    }
 	   
 	   private void initSimulation() {
-		   dogs1.add(new GermanShepherd(startP));
 
 	        dogs = 1;
 
 	        for (int z = 0; z < dogs; z++) {
-	            x[z] = 50 - z * 10;
-	            y[z] = 50;
+	            x[z] = 150 - z * 10;
+	            y[z] = 150;
+	            
+	            x1[z] = 150 - z * 10;
+	            y1[z] = 150;
+	            
+	            
 	        }
 	        
 	  
@@ -149,12 +156,17 @@ public class DogPound extends JPanel implements ActionListener{
 	            
 			   
 	            for (int z = 0; z < dogs1.size(); z++) {
-	                if (z == 0) {
-	                    g.drawImage(dogs1.get(0).icon.getImage(), x[z], y[z], this);
-	                } else {
-	                	g.drawImage(dogs1.get(0).icon.getImage(), x[z], y[z], this);
-	                }
-	                
+	            	int b = Math.round(dogs1.get(z).getAlignmentX());
+	            	int a = Math.round(dogs1.get(z).getAlignmentY());
+//	            	System.out.println(b);
+
+//                    g.drawImage(dogs1.get(z).icon.getImage(), b, a, this);
+                    g.drawImage(dogs1.get(z).icon.getImage(), x[z], y[z], this);
+                    g.drawImage(dogs1.get(z).icon.getImage(), x1[z], y1[z], this);
+
+                    
+                    
+
 	               
 	            }
 	            
@@ -173,7 +185,7 @@ public class DogPound extends JPanel implements ActionListener{
 	            
 	            Toolkit.getDefaultToolkit().sync();
 		   } else {
-			   gameOver(g);
+			   
 		   }
 		   
 
@@ -186,7 +198,7 @@ public class DogPound extends JPanel implements ActionListener{
 	    		if ((x[0] == t.food_x) && (y[0] == t.food_y)) {
 	            	
 	    			randomShit(dogs1.get(0), getGraphics());
-//	    			treats.remove();
+	    			
 	            	
 	            }
 	    	}
@@ -194,18 +206,18 @@ public class DogPound extends JPanel implements ActionListener{
 	   }
 	   
 	   
-	   private void gameOver(Graphics g) {
-	    	
-	        String msg = "Game Over";
-	        Font small = new Font("Helvetica", Font.ITALIC, 130);
-        FontMetrics metr = getFontMetrics(small);
-	
-	        g.setColor(Color.white);
-	        g.setFont(small);
-	        g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 5, B_HEIGHT / 2);
-	        
-	    
-	    }
+//	   private void gameOver(Graphics g) {
+//	    	
+//	        String msg = "Game Over";
+//	        Font small = new Font("Helvetica", Font.ITALIC, 130);
+//        FontMetrics metr = getFontMetrics(small);
+//	
+//	        g.setColor(Color.white);
+//	        g.setFont(small);
+//	        g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 5, B_HEIGHT / 2);
+//	        
+//	    
+//	    }
 	   
 	    
 	   public void randomShit(Dog d, Graphics g) {
@@ -235,47 +247,54 @@ public class DogPound extends JPanel implements ActionListener{
 
 	        for (int z = dogs; z > 0; z--) {
 	            x[z] = x[(z - 1)];
-	            y[z] = y[(z - 1)];
+	            y[z] = y[(z - 1)]; 
 	            
-	            
+	            x1[z] = x1[(z - 1)];
+	            y1[z] = y1[(z - 1)]; 
 	        }
 
 	        if (leftDirection) {
 	            x[0] -= DOG_SIZE;
+	            x1[0] += DOG_SIZE;
 	        }
 
 	        if (rightDirection) {
 	            x[0] += DOG_SIZE;
+	            x1[0] -= DOG_SIZE;
 	        }
 
 	        if (upDirection) {
 	            y[0] -= DOG_SIZE;
+	            y1[0] += DOG_SIZE;
 	        }
 
 	        if (downDirection) {
 	            y[0] += DOG_SIZE;
+	            y1[0] -= DOG_SIZE;
+	        }
+	        // second doggo
+	        if (leftDirection1) {
+	            
+	            x1[0] += DOG_SIZE;
+	        }
+
+	        if (rightDirection1) {
+	            
+	            x1[0] -= DOG_SIZE;
+	        }
+
+	        if (upDirection1) {
+	           
+	            y1[0] += DOG_SIZE;
+	        }
+
+	        if (downDirection1) {
+	           
+	            y1[0] -= DOG_SIZE;
 	        }
 	        
-//	        for (int z1 = dogs1.size(); z1 > 0; z1--) {
-//	            x[z1] = x[(z1 - 1)];
-//	            y[z1] = y[(z1 - 1)];
-//	        }
-//
-//	        if (leftDirection1) {
-//	            x[1] -= 10;
-//	        }
-//
-//	        if (rightDirection1) {
-//	            x[1] += 10;
-//	        }
-//
-//	        if (upDirection1) {
-//	            y[1] -= 10;
-//	        }
-//
-//	        if (downDirection1) {
-//	            y[1] += 10;
-//	        }
+	        
+
 
 	        
 	        count++;
@@ -336,6 +355,9 @@ public class DogPound extends JPanel implements ActionListener{
 	         g.drawString(msgA, x[0], y[0]);
 	         dogs1.get(0).bark();
 	         
+	         g.drawString(msgA, x1[0], y1[0]);
+	         dogs1.get(0).bark();
+	         
 	         if(count % 10 == 0) {
 	        	  angered = false;
 	         }
@@ -386,6 +408,35 @@ public class DogPound extends JPanel implements ActionListener{
                 upDirection = rd.nextBoolean();
                 downDirection = rd.nextBoolean();
                 rightDirection = rd.nextBoolean();
+	        }
+	        // Second Dog 
+	        
+	        if(x1[0] < 0) {
+	        	leftDirection1 = rd.nextBoolean();
+                upDirection1 = rd.nextBoolean();
+                downDirection1 = rd.nextBoolean();
+                rightDirection1 = false;
+	        }
+	        
+	        if( x1[0] >= B_WIDTH) {
+	        	upDirection1 = rd.nextBoolean();
+                rightDirection1 = rd.nextBoolean();
+                leftDirection1 = false;
+                downDirection1 = rd.nextBoolean();
+	        }
+	        
+	        if( y1[0] < 0) {
+	        	leftDirection1 = rd.nextBoolean();
+                upDirection1 = rd.nextBoolean();;
+                downDirection1 = false;
+                rightDirection1 = rd.nextBoolean();
+	        }
+	        
+	        if( y1[0] >= B_HEIGHT) {
+	        	upDirection1 = false;
+                rightDirection1 = rd.nextBoolean();
+                leftDirection1 = rd.nextBoolean();
+                downDirection1 = rd.nextBoolean();
 	        }
 	        
 	        if (!isRunning) {
@@ -458,5 +509,4 @@ public class DogPound extends JPanel implements ActionListener{
 			
 	   }
 	
-
 }
