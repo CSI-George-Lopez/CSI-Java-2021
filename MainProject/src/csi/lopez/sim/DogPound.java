@@ -195,7 +195,7 @@ public class DogPound extends JPanel implements ActionListener{
 		   
 		   for(Treat t : treats) {
 	    		
-	    		if ((x[0] == t.food_x) && (y[0] == t.food_y)) {
+	    		if ((x[0] == t.food_x) && (y[0] == t.food_y) || (x1[0] == t.food_x) && (y1[0] == t.food_y)) {
 	            	
 	    			randomShit(dogs1.get(0), getGraphics());
 	    			
@@ -292,19 +292,16 @@ public class DogPound extends JPanel implements ActionListener{
 	           
 	            y1[0] -= DOG_SIZE;
 	        }
-	        
-	        
-
-
-	        
+	
 	        count++;
 	        Random rd = new Random();
 	        Random rand = new Random();
-
-	      
-
+	        
+	        //random for dog 1
 	        int randomNum = rand.nextInt((30 - 1) + 1) + 1;
+	        //random for food
 	        int randomNum1 = rand.nextInt((5000 - 1) + 1) + 1;
+	        //random for dog 2
 	        int randomNum2 = rand.nextInt((100 - 1) + 1) + 1;
 	       
 	        if(count % randomNum == 0) {
@@ -328,17 +325,17 @@ public class DogPound extends JPanel implements ActionListener{
 	        if(count % randomNum == 2) {
 	        	angered = true;
 	        }
-	        
-	        if(upDirection == false && downDirection == false && leftDirection == false && rightDirection == false) {
-	        	rightDirection = false;
-	        }
-	        if(upDirection == true && downDirection == true && leftDirection == true && rightDirection == true) {
-	        	rightDirection = true;
-	        	upDirection = false;
-	        	downDirection = false;
-	        	leftDirection = false;
-	        }
-	        
+//	        
+//	        if(upDirection == false && downDirection == false && leftDirection == false && rightDirection == false) {
+//	        	rightDirection = false;
+//	        }
+//	        if(upDirection == true && downDirection == true && leftDirection == true && rightDirection == true) {
+//	        	rightDirection = true;
+//	        	upDirection = false;
+//	        	downDirection = false;
+//	        	leftDirection = false;
+//	        }
+//	        
 	       
 	 	   	
 	    }
