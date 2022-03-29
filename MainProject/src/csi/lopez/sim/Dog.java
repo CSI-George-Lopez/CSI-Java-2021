@@ -64,14 +64,34 @@ public class Dog extends JPanel{
 		this.icon = new ImageIcon(new ImageIcon(getClass().getResource(directory)).getImage().getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH));
 	}
 	
-	public void piss() {
+	public class Piss{
 		
-		if(female == false) {
-			System.out.println("raise leg");
+	
+
+	
+		Point location;
+		ImageIcon icon;
+		
+		
+		public Piss() {
+			this.icon = new ImageIcon(new ImageIcon(getClass().getResource("piss.png")).getImage().getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH));
 		}
-		System.out.println("Tsssssss");
 		
+		public Point getLocation() {
+			return location;
+		}
+
+		public void setLocation(Point location) {
+			this.location = location;
+		}
+		
+		public Piss piss() {
+			
+			return new Piss();
+		}
 	}
+	
+	
 	
 	public void die() {
 		
